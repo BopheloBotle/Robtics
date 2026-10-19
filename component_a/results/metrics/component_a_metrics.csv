@@ -1,0 +1,12 @@
+metric,value,unit
+dijkstra_nodes_explored,9555,cells
+dijkstra_path_length,10.719595949289317,m
+dijkstra_mean_time_ms,145.84910001140088,ms
+astar_nodes_explored,715,cells
+astar_path_length,10.719595949289317,m
+astar_mean_time_ms,15.646740002557634,ms
+nav_success,1,bool
+nav_sim_time_s,56.287999999997346,s
+pid_Under-damped_ss_error_deg,1.6713112833889652,deg
+pid_Well-tuned_ss_error_deg,3.2885405111750607,deg
+pid_Over-damped_ss_error_deg,16.329780264059597,deg

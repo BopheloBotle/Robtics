@@ -1,0 +1,46 @@
+{
+  "pathfinding": {
+    "dijkstra": {
+      "nodes_explored": 9555,
+      "path_length_m": 10.719595949289317,
+      "mean_planning_time_ms": 145.84910001140088,
+      "success": true
+    },
+    "astar": {
+      "nodes_explored": 715,
+      "path_length_m": 10.719595949289317,
+      "mean_planning_time_ms": 15.646740002557634,
+      "success": true
+    }
+  },
+  "navigation": {
+    "success": true,
+    "sim_time_s": 56.287999999997346
+  },
+  "pid_tuning": [
+    {
+      "name": "Under-damped",
+      "Kp": 3.0,
+      "Ki": 0.1,
+      "Kd": 0.05,
+      "steady_state_error_deg": 1.6713112833889652,
+      "overshoot_rad": 0.031310759240915864
+    },
+    {
+      "name": "Well-tuned",
+      "Kp": 1.5,
+      "Ki": 0.05,
+      "Kd": 0.2,
+      "steady_state_error_deg": 3.2885405111750607,
+      "overshoot_rad": 0.05739585950522219
+    },
+    {
+      "name": "Over-damped",
+      "Kp": 0.5,
+      "Ki": 0.01,
+      "Kd": 0.5,
+      "steady_state_error_deg": 16.329780264059597,
+      "overshoot_rad": 0.0
+    }
+  ]
+}

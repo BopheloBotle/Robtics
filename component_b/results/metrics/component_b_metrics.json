@@ -1,0 +1,93 @@
+{
+  "neural_network": {
+    "numpy_mlp_accuracy": 0.955,
+    "sklearn_accuracy": 0.9525,
+    "confusion_matrix": [
+      [
+        112,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        95,
+        0,
+        6
+      ],
+      [
+        0,
+        7,
+        88,
+        2
+      ],
+      [
+        0,
+        1,
+        1,
+        87
+      ]
+    ],
+    "class_metrics": {
+      "forward": {
+        "precision": 1.0,
+        "recall": 0.9911504424778761,
+        "f1": 0.9955555555555555,
+        "support": 113
+      },
+      "turn_left": {
+        "precision": 0.9223300970873787,
+        "recall": 0.9405940594059405,
+        "f1": 0.9313725490196079,
+        "support": 101
+      },
+      "turn_right": {
+        "precision": 0.9777777777777777,
+        "recall": 0.9072164948453608,
+        "f1": 0.9411764705882353,
+        "support": 97
+      },
+      "stop": {
+        "precision": 0.9157894736842105,
+        "recall": 0.9775280898876404,
+        "f1": 0.9456521739130435,
+        "support": 89
+      }
+    }
+  },
+  "consensus": {
+    "converged": true,
+    "iterations": 3,
+    "final_error": 7.500000620552782e-11,
+    "true_average": 4.0,
+    "init_values": [
+      1.0,
+      4.0,
+      7.0
+    ]
+  },
+  "task_allocation": {
+    "pso": {
+      "assignment": [
+        3,
+        1,
+        4
+      ],
+      "cost_m": 12.582762530298218,
+      "duplicates": 0
+    },
+    "greedy": {
+      "assignment": [
+        3,
+        4,
+        2
+      ],
+      "cost_m": 13.651153493795553,
+      "duplicates": 0
+    }
+  },
+  "centralised_vs_distributed": {
+    "centralised_cost_m": 13.651153493795553,
+    "distributed_cost_m": 12.582762530298218
+  }
+}

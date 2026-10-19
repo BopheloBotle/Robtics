@@ -1,0 +1,283 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+
+WorldInfo {
+  info [
+    "Component A — Autonomous Mobile Robot Navigation"
+    "Arena: 10m x 10m flat floor with 7 static obstacles."
+    "Robot: custom differential-drive with LiDAR and camera."
+    "Controller: autonomous_controller"
+    "Start: (-3.5, -3.5)  Goal: (3.5, 3.5)"
+  ]
+  title "Component A — Autonomous Navigation"
+  basicTimeStep 32
+  lineScale 0.1
+}
+Viewpoint {
+  orientation -0.3780 0.7746 0.5068 1.4748
+  position -0.5 -12.0 14.0
+  follow "AutonomousRobot"
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  translation 0 0 0
+  floorSize 10 10
+  wallThickness 0.1
+  wallHeight 0.5
+  floorTileSize 1 1
+}
+
+# ---- Obstacle 1: Centre box ----
+DEF OBS1 Solid {
+  translation 0.0 0.0 0.2
+  children [
+    DEF BOX_SHAPE1 Shape {
+      appearance PBRAppearance {
+        baseColor 0.8 0.2 0.2
+        roughness 0.5
+        metalness 0
+      }
+      geometry Box { size 0.8 0.8 0.4 }
+    }
+  ]
+  name "obstacle_1"
+  boundingObject USE BOX_SHAPE1
+}
+
+# ---- Obstacle 2 ----
+DEF OBS2 Solid {
+  translation 2.0 -1.5 0.3
+  children [
+    DEF BOX_SHAPE2 Shape {
+      appearance PBRAppearance {
+        baseColor 0.2 0.5 0.8
+        roughness 0.5
+        metalness 0
+      }
+      geometry Box { size 0.6 1.2 0.6 }
+    }
+  ]
+  name "obstacle_2"
+  boundingObject USE BOX_SHAPE2
+}
+
+# ---- Obstacle 3 ----
+DEF OBS3 Solid {
+  translation -2.0 1.5 0.15
+  children [
+    DEF BOX_SHAPE3 Shape {
+      appearance PBRAppearance {
+        baseColor 0.2 0.8 0.2
+        roughness 0.5
+        metalness 0
+      }
+      geometry Box { size 1.0 0.5 0.3 }
+    }
+  ]
+  name "obstacle_3"
+  boundingObject USE BOX_SHAPE3
+}
+
+# ---- Obstacle 4 ----
+DEF OBS4 Solid {
+  translation 1.0 2.5 0.15
+  children [
+    DEF BOX_SHAPE4 Shape {
+      appearance PBRAppearance {
+        baseColor 0.8 0.8 0.2
+        roughness 0.5
+        metalness 0
+      }
+      geometry Box { size 0.5 0.5 0.3 }
+    }
+  ]
+  name "obstacle_4"
+  boundingObject USE BOX_SHAPE4
+}
+
+# ---- Obstacle 5 ----
+DEF OBS5 Solid {
+  translation -1.5 -2.0 0.2
+  children [
+    DEF BOX_SHAPE5 Shape {
+      appearance PBRAppearance {
+        baseColor 0.8 0.4 0.0
+        roughness 0.5
+        metalness 0
+      }
+      geometry Box { size 0.7 0.7 0.4 }
+    }
+  ]
+  name "obstacle_5"
+  boundingObject USE BOX_SHAPE5
+}
+
+# ---- Obstacle 6 ----
+DEF OBS6 Solid {
+  translation 3.0 0.5 0.25
+  children [
+    DEF BOX_SHAPE6 Shape {
+      appearance PBRAppearance {
+        baseColor 0.5 0.0 0.5
+        roughness 0.5
+        metalness 0
+      }
+      geometry Box { size 0.4 0.8 0.5 }
+    }
+  ]
+  name "obstacle_6"
+  boundingObject USE BOX_SHAPE6
+}
+
+# ---- Obstacle 7 ----
+DEF OBS7 Solid {
+  translation -3.0 0.0 0.15
+  children [
+    DEF BOX_SHAPE7 Shape {
+      appearance PBRAppearance {
+        baseColor 0.0 0.6 0.6
+        roughness 0.5
+        metalness 0
+      }
+      geometry Box { size 0.5 0.5 0.3 }
+    }
+  ]
+  name "obstacle_7"
+  boundingObject USE BOX_SHAPE7
+}
+
+# ---- Goal marker (visual only, not a solid obstacle) ----
+DEF GOAL_MARKER Solid {
+  translation 3.5 3.5 0.01
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.0 1.0 0.0
+        roughness 1.0
+        metalness 0
+        transparency 0.5
+      }
+      geometry Cylinder { radius 0.15 height 0.02 }
+    }
+  ]
+  name "goal_marker"
+}
+
+# ---- Autonomous Robot (differential drive) ----
+DEF AutonomousRobot Robot {
+  translation -3.5 -3.5 0.033
+  rotation 0 0 1 0.785398
+  name "AutonomousRobot"
+  controller "autonomous_controller"
+  controllerArgs []
+  children [
+    # Robot body
+    DEF BODY Shape {
+      appearance PBRAppearance {
+        baseColor 0.1 0.1 0.7
+        roughness 0.4
+        metalness 0.1
+      }
+      geometry Cylinder { radius 0.07 height 0.05 }
+    }
+
+    # Left wheel
+    DEF LEFT_WHEEL HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 1 0
+        anchor -0.052 0 0
+      }
+      device [
+        RotationalMotor {
+          name "left_wheel_motor"
+          maxVelocity 6.28
+        }
+        PositionSensor {
+          name "left_wheel_encoder"
+        }
+      ]
+      endPoint Solid {
+        translation -0.052 0 0
+        rotation 0 1 0 0
+        children [
+          DEF WHEEL_SHAPE Shape {
+            appearance PBRAppearance {
+              baseColor 0.2 0.2 0.2
+              roughness 0.8
+              metalness 0
+            }
+            geometry Cylinder { radius 0.033 height 0.018 }
+          }
+        ]
+        boundingObject USE WHEEL_SHAPE
+        physics Physics { density 500 }
+      }
+    }
+
+    # Right wheel
+    DEF RIGHT_WHEEL HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 1 0
+        anchor 0.052 0 0
+      }
+      device [
+        RotationalMotor {
+          name "right_wheel_motor"
+          maxVelocity 6.28
+        }
+        PositionSensor {
+          name "right_wheel_encoder"
+        }
+      ]
+      endPoint Solid {
+        translation 0.052 0 0
+        rotation 0 1 0 0
+        children [
+          USE WHEEL_SHAPE
+        ]
+        boundingObject USE WHEEL_SHAPE
+        physics Physics { density 500 }
+      }
+    }
+
+    # LiDAR sensor
+    DEF LIDAR Lidar {
+      translation 0 0 0.04
+      name "lidar"
+      horizontalResolution 360
+      fieldOfView 6.28318
+      numberOfLayers 1
+      minRange 0.05
+      maxRange 3.5
+      noise 0.02
+    }
+
+    # Camera
+    DEF CAMERA Camera {
+      translation 0.07 0 0.02
+      rotation 0 0 1 0
+      name "camera"
+      width 64
+      height 48
+      fieldOfView 1.0472
+    }
+
+    # GPS for ground-truth position (evaluation only)
+    DEF GPS GPS {
+      name "gps"
+    }
+
+    # Compass for ground-truth heading (evaluation only)
+    DEF COMPASS Compass {
+      name "compass"
+    }
+  ]
+  boundingObject Cylinder { radius 0.07 height 0.05 }
+  physics Physics { density 200 }
+}

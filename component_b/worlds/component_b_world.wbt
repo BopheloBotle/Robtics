@@ -1,0 +1,312 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+
+WorldInfo {
+  info [
+    "Component B — Cooperative Swarm Robotics"
+    "Three autonomous robots cooperate to cover target locations."
+    "Communication via Webots Emitter/Receiver devices."
+    "Controller: swarm_controller (each robot runs the same controller)"
+    "Robot 1 start: (-3, -3)  Robot 2 start: (0, -3)  Robot 3 start: (3, -3)"
+    "Targets: distributed across the arena."
+  ]
+  title "Component B — Swarm Robotics"
+  basicTimeStep 32
+  lineScale 0.1
+}
+Viewpoint {
+  orientation -0.38 0.78 0.50 1.45
+  position -0.5 -14.0 16.0
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  translation 0 0 0
+  floorSize 12 12
+  wallThickness 0.1
+  wallHeight 0.5
+  floorTileSize 1 1
+}
+
+# ---- Static obstacles ----
+DEF SOBS1 Solid {
+  translation -2.0 2.0 0.2
+  children [
+    DEF SB1 Shape {
+      appearance PBRAppearance { baseColor 0.5 0.5 0.5 roughness 0.6 metalness 0 }
+      geometry Box { size 0.8 0.8 0.4 }
+    }
+  ]
+  name "swarm_obs_1"
+  boundingObject USE SB1
+}
+DEF SOBS2 Solid {
+  translation 2.0 1.5 0.2
+  children [
+    DEF SB2 Shape {
+      appearance PBRAppearance { baseColor 0.5 0.5 0.5 roughness 0.6 metalness 0 }
+      geometry Box { size 0.6 1.0 0.4 }
+    }
+  ]
+  name "swarm_obs_2"
+  boundingObject USE SB2
+}
+DEF SOBS3 Solid {
+  translation 0.0 0.0 0.2
+  children [
+    DEF SB3 Shape {
+      appearance PBRAppearance { baseColor 0.5 0.5 0.5 roughness 0.6 metalness 0 }
+      geometry Box { size 1.0 0.5 0.4 }
+    }
+  ]
+  name "swarm_obs_3"
+  boundingObject USE SB3
+}
+
+# ---- Target markers (visual only) ----
+DEF TARGET1 Solid {
+  translation -3.0 3.0 0.01
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 1.0 0.8 0.0 roughness 1.0 metalness 0 transparency 0.4 }
+      geometry Cylinder { radius 0.2 height 0.02 }
+    }
+  ]
+  name "target_1"
+}
+DEF TARGET2 Solid {
+  translation 0.0 3.5 0.01
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 1.0 0.8 0.0 roughness 1.0 metalness 0 transparency 0.4 }
+      geometry Cylinder { radius 0.2 height 0.02 }
+    }
+  ]
+  name "target_2"
+}
+DEF TARGET3 Solid {
+  translation 3.0 3.0 0.01
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 1.0 0.8 0.0 roughness 1.0 metalness 0 transparency 0.4 }
+      geometry Cylinder { radius 0.2 height 0.02 }
+    }
+  ]
+  name "target_3"
+}
+DEF TARGET4 Solid {
+  translation -3.5 0.0 0.01
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 1.0 0.5 0.0 roughness 1.0 metalness 0 transparency 0.4 }
+      geometry Cylinder { radius 0.15 height 0.02 }
+    }
+  ]
+  name "target_4"
+}
+DEF TARGET5 Solid {
+  translation 3.5 0.0 0.01
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 1.0 0.5 0.0 roughness 1.0 metalness 0 transparency 0.4 }
+      geometry Cylinder { radius 0.15 height 0.02 }
+    }
+  ]
+  name "target_5"
+}
+
+# ===========================================================
+# Robot 1  (identifier: "robot_1")
+# ===========================================================
+DEF ROBOT_1 Robot {
+  translation -3.0 -3.0 0.033
+  rotation 0 0 1 1.5708
+  name "robot_1"
+  controller "swarm_controller"
+  controllerArgs ["robot_1"]
+  children [
+    DEF BODY_1 Shape {
+      appearance PBRAppearance { baseColor 0.8 0.1 0.1 roughness 0.4 metalness 0.1 }
+      geometry Cylinder { radius 0.07 height 0.05 }
+    }
+    DEF LW1 HingeJoint {
+      jointParameters HingeJointParameters { axis 0 1 0 anchor -0.052 0 0 }
+      device [
+        RotationalMotor { name "left_wheel_motor" maxVelocity 6.28 }
+        PositionSensor { name "left_wheel_encoder" }
+      ]
+      endPoint Solid {
+        translation -0.052 0 0
+        children [
+          DEF WS Shape {
+            appearance PBRAppearance { baseColor 0.2 0.2 0.2 roughness 0.8 metalness 0 }
+            geometry Cylinder { radius 0.033 height 0.018 }
+          }
+        ]
+        boundingObject USE WS
+        physics Physics { density 500 }
+      }
+    }
+    DEF RW1 HingeJoint {
+      jointParameters HingeJointParameters { axis 0 1 0 anchor 0.052 0 0 }
+      device [
+        RotationalMotor { name "right_wheel_motor" maxVelocity 6.28 }
+        PositionSensor { name "right_wheel_encoder" }
+      ]
+      endPoint Solid {
+        translation 0.052 0 0
+        children [ USE WS ]
+        boundingObject USE WS
+        physics Physics { density 500 }
+      }
+    }
+    Lidar {
+      translation 0 0 0.04
+      name "lidar"
+      horizontalResolution 180
+      fieldOfView 6.28318
+      numberOfLayers 1
+      minRange 0.05
+      maxRange 2.5
+      noise 0.02
+    }
+    GPS { name "gps" }
+    Compass { name "compass" }
+    # Emitter: broadcast to all robots on channel 1
+    Emitter {
+      name "emitter"
+      channel 1
+      range 10.0
+    }
+    # Receiver: receive from all robots on channel 1
+    Receiver {
+      name "receiver"
+      channel 1
+    }
+  ]
+  boundingObject Cylinder { radius 0.07 height 0.05 }
+  physics Physics { density 200 }
+}
+
+# ===========================================================
+# Robot 2  (identifier: "robot_2")
+# ===========================================================
+DEF ROBOT_2 Robot {
+  translation 0.0 -3.0 0.033
+  rotation 0 0 1 1.5708
+  name "robot_2"
+  controller "swarm_controller"
+  controllerArgs ["robot_2"]
+  children [
+    DEF BODY_2 Shape {
+      appearance PBRAppearance { baseColor 0.1 0.6 0.1 roughness 0.4 metalness 0.1 }
+      geometry Cylinder { radius 0.07 height 0.05 }
+    }
+    DEF LW2 HingeJoint {
+      jointParameters HingeJointParameters { axis 0 1 0 anchor -0.052 0 0 }
+      device [
+        RotationalMotor { name "left_wheel_motor" maxVelocity 6.28 }
+        PositionSensor { name "left_wheel_encoder" }
+      ]
+      endPoint Solid {
+        translation -0.052 0 0
+        children [ USE WS ]
+        boundingObject USE WS
+        physics Physics { density 500 }
+      }
+    }
+    DEF RW2 HingeJoint {
+      jointParameters HingeJointParameters { axis 0 1 0 anchor 0.052 0 0 }
+      device [
+        RotationalMotor { name "right_wheel_motor" maxVelocity 6.28 }
+        PositionSensor { name "right_wheel_encoder" }
+      ]
+      endPoint Solid {
+        translation 0.052 0 0
+        children [ USE WS ]
+        boundingObject USE WS
+        physics Physics { density 500 }
+      }
+    }
+    Lidar {
+      translation 0 0 0.04
+      name "lidar"
+      horizontalResolution 180
+      fieldOfView 6.28318
+      numberOfLayers 1
+      minRange 0.05
+      maxRange 2.5
+      noise 0.02
+    }
+    GPS { name "gps" }
+    Compass { name "compass" }
+    Emitter { name "emitter" channel 1 range 10.0 }
+    Receiver { name "receiver" channel 1 }
+  ]
+  boundingObject Cylinder { radius 0.07 height 0.05 }
+  physics Physics { density 200 }
+}
+
+# ===========================================================
+# Robot 3  (identifier: "robot_3")
+# ===========================================================
+DEF ROBOT_3 Robot {
+  translation 3.0 -3.0 0.033
+  rotation 0 0 1 1.5708
+  name "robot_3"
+  controller "swarm_controller"
+  controllerArgs ["robot_3"]
+  children [
+    DEF BODY_3 Shape {
+      appearance PBRAppearance { baseColor 0.1 0.1 0.8 roughness 0.4 metalness 0.1 }
+      geometry Cylinder { radius 0.07 height 0.05 }
+    }
+    DEF LW3 HingeJoint {
+      jointParameters HingeJointParameters { axis 0 1 0 anchor -0.052 0 0 }
+      device [
+        RotationalMotor { name "left_wheel_motor" maxVelocity 6.28 }
+        PositionSensor { name "left_wheel_encoder" }
+      ]
+      endPoint Solid {
+        translation -0.052 0 0
+        children [ USE WS ]
+        boundingObject USE WS
+        physics Physics { density 500 }
+      }
+    }
+    DEF RW3 HingeJoint {
+      jointParameters HingeJointParameters { axis 0 1 0 anchor 0.052 0 0 }
+      device [
+        RotationalMotor { name "right_wheel_motor" maxVelocity 6.28 }
+        PositionSensor { name "right_wheel_encoder" }
+      ]
+      endPoint Solid {
+        translation 0.052 0 0
+        children [ USE WS ]
+        boundingObject USE WS
+        physics Physics { density 500 }
+      }
+    }
+    Lidar {
+      translation 0 0 0.04
+      name "lidar"
+      horizontalResolution 180
+      fieldOfView 6.28318
+      numberOfLayers 1
+      minRange 0.05
+      maxRange 2.5
+      noise 0.02
+    }
+    GPS { name "gps" }
+    Compass { name "compass" }
+    Emitter { name "emitter" channel 1 range 10.0 }
+    Receiver { name "receiver" channel 1 }
+  ]
+  boundingObject Cylinder { radius 0.07 height 0.05 }
+  physics Physics { density 200 }
+}

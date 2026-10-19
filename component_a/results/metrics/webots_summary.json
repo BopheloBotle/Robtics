@@ -1,0 +1,13 @@
+{
+  "goal_reached": false,
+  "timed_out": false,
+  "collision_count": 0,
+  "steps": 1147,
+  "sim_time_s": 36.704,
+  "path_length_m": 4.304716757063485,
+  "path_plan": {
+    "algorithm": "A*",
+    "nodes_explored": 715,
+    "planned_length_m": 10.719595949289317
+  }
+}

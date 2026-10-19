@@ -1,0 +1,25 @@
+{
+  "n_samples": 2000,
+  "features": [
+    "front_norm",
+    "left_norm",
+    "right_norm",
+    "goal_angle_norm",
+    "heading_err_norm"
+  ],
+  "classes": [
+    "forward",
+    "turn_left",
+    "turn_right",
+    "stop"
+  ],
+  "label_counts": {
+    "0": 500,
+    "1": 500,
+    "2": 500,
+    "3": 500
+  },
+  "teacher_policy": "rule_based_threshold_balanced",
+  "random_seed": 42,
+  "source": "synthetic_offline_balanced"
+}

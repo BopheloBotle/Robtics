@@ -1,0 +1,14 @@
+# Robotics Project — Python Dependencies
+# Install with: pip install -r requirements.txt
+#
+# Verified against Python 3.13.5 on Windows 11, October 2026.
+# Webots R2025a ships its own controller library; do NOT install it via pip.
+
+numpy>=2.2.5
+matplotlib>=3.10.1
+opencv-python>=5.0.0
+scikit-learn>=1.7.0
+scipy>=1.16.0
+pandas>=2.2.3
+pillow>=11.2.1
+pytest>=8.0.0

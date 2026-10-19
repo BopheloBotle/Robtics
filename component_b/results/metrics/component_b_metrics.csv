@@ -1,0 +1,13 @@
+metric,value,unit
+nn_test_accuracy,0.955,fraction
+nn_sklearn_accuracy,0.9525,fraction
+nn_train_samples,1600,samples
+nn_test_samples,400,samples
+consensus_converged,1,bool
+consensus_iterations,3,iter
+consensus_final_error,7.500000620552782e-11,rel
+pso_allocation_cost,12.582762530298218,m
+greedy_allocation_cost,13.651153493795553,m
+pso_duplicate_count,0,count
+cent_cost,13.651153493795553,m
+dist_cost,12.582762530298218,m
